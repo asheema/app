@@ -1,0 +1,12 @@
+# requirements.txt
+streamlit==1.32.2
+pandas
+numpy
+scikit-learn==1.3.2
+joblib
+requests
+fastapi
+uvicorn
+python-dotenv
+streamlit_option_menu
+streamlit_extras
