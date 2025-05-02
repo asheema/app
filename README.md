@@ -1,5 +1,5 @@
 # app
-1.  Project Overview
+Project Overview
 AI-Powered Mental Health Assessment & Recommendation System is a machine learning-powered web application designed to assess a user's mental health status using two clinically validated screening tools: PHQ-9 (for depression) and GAD-7 (for anxiety).
 Users complete a series of questions, and the system:
 Predicts their mental wellness level using a trained Random Forest model.
