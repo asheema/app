@@ -7,7 +7,7 @@ import numpy as np
 from sklearn.cluster import KMeans
 
 # Page configuration
-st.set_page_config(page_title="Mental Health Predictor", page_icon="🧠", layout="centered")
+st.set_page_config(page_title="AI-Powered Mental Health Assessment & Recommendation System", page_icon="🧠", layout="centered")
 
 # Sidebar navigation menu
 with st.sidebar:
