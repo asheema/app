@@ -46,12 +46,16 @@ Ethical AI Use-Clear disclaimer, non-diagnostic purpose, synthetic data training
 # Technologies Used:
 
 Frontend: Streamlit
+
 Backend: FastAPI
+
 Model: Random Forest (trained on synthetic PHQ-9 and GAD-7 data)
+
 Deployment: GitHub Actions (CI/CD)
 
 
 Setup Instructions
+
 Project Structure
 app/
 ├── appp.py                # Streamlit UI
@@ -123,8 +127,11 @@ Errors:
 
 
 .env.example
+
 API_URL=http://localhost:8000
+
 MODEL_PATH=random_forest_model.pkl
+
 After copying, rename this file to .env and customize as needed.
 
 
@@ -200,12 +207,19 @@ Training Script: train_model.py
 
 # Generates synthetic data and trains a RandomForest model
 from sklearn.ensemble import RandomForestClassifier
+
 import numpy as np
+
 import joblib
+
 X = np.random.randint(0, 4, size=(1000, 16))
+
 y = np.array([0 if s <= 9 else 1 if s <= 14 else 2 if s <= 19 else 3 for s in X.sum(axis=1)])
+
 model = RandomForestClassifier(n_estimators=100, random_state=42)
+
 model.fit(X, y)
+
 joblib.dump(model, "random_forest_model.pkl")
 
 
