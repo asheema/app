@@ -1,4 +1,4 @@
-# AI-POWERED MENTAL Health Assessment & Recommendation System
+# AI-Powered Mental Health Assessment & Recommendation System
 
 # Project Overview
 
@@ -197,7 +197,8 @@ Accuracy (on synthetic test split): ~90%
 Fast inference and high generalization on score-based severity categories
 
 
-✅ Additional Notes
+# Additional Notes
+
 The Clustering feature in app.py uses KMeans to group user response patterns into 3 clusters for analysis, based on past response trends.
 CI/CD pipeline auto-deploys the app using GitHub Actions (.github/workflows/deploy.yml).
 Responsible AI: Includes ethical disclaimers, research references, and prioritizes user safety.
