@@ -75,9 +75,13 @@ Deployment: GitHub Actions (CI/CD)
 Setup Instructions
 
 Project Structure
+
 app/
-├── appp.py                # Streamlit UI
+
+├── appp.py               # Streamlit UI
+
 ├── api.py                # FastAPI backend
+
 ├── train_model.py        # Script to generate and train ML model
 ├── random_forest_model.pkl  # Saved model
 ├── requirements.txt
@@ -153,7 +157,7 @@ MODEL_PATH=random_forest_model.pkl
 After copying, rename this file to .env and customize as needed.
 
 
-Local Setup: Frontend + Backend Integration
+# Local Setup: Frontend + Backend Integration
 
 Backend (FastAPI):
 
@@ -181,13 +185,9 @@ Deployment on Render: Full Setup with Frontend + Backend
 
 Backend (FastAPI) on Render
 
-Steps:
-
 Push your backend code (api.py, model.pkl, train_model.py, etc.) to a GitHub repo.
 
 Create a new Web Service on Render.
-
-Use:
 
 Build Command: pip install -r requirements.txt
 
@@ -206,8 +206,6 @@ Frontend (Streamlit) on Render
 Push your app.py and related frontend code to another GitHub repo.
 
 Create another Web Service on Render.
-
-Use:
 
 Build Command: pip install -r requirements.txt
 
