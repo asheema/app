@@ -78,7 +78,7 @@ def predict_score(data: MentalHealthInput):
         "recommendation": recommendation
     }
     """
-
+"""
 from fastapi import FastAPI
 from pydantic import BaseModel
 import joblib
@@ -124,3 +124,66 @@ def predict(request: PredictionRequest):
         'level': level,
         'recommendation': recommendation
     }
+"""
+
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+from typing import List
+import joblib
+import numpy as np
+import uvicorn
+
+# Define the input schema using Pydantic
+class InputData(BaseModel):
+    phq9: List[int]
+    gad7: List[int]
+
+# Initialize FastAPI app
+app = FastAPI(title="Mental Health Prediction API")
+
+# Load the trained model
+try:
+    model = joblib.load("random_forest_model.pkl")  # Ensure this file is in the same directory
+except Exception as e:
+    raise RuntimeError(f"Failed to load model: {e}")
+
+# Define the prediction endpoint
+@app.post("/predict")
+def predict(input_data: InputData):
+    if len(input_data.phq9) != 9 or len(input_data.gad7) != 7:
+        raise HTTPException(status_code=400, detail="PHQ-9 must have 9 items and GAD-7 must have 7.")
+
+    input_features = np.array(input_data.phq9 + input_data.gad7).reshape(1, -1)
+
+    try:
+        prediction = model.predict(input_features)[0]
+        total_score = sum(input_data.phq9) + sum(input_data.gad7)
+
+        # Interpret prediction class
+        level_mapping = {
+            0: "Mild",
+            1: "Moderate",
+            2: "Moderately Severe",
+            3: "Severe"
+        }
+        level = level_mapping.get(prediction, "Unknown")
+
+        recommendation = {
+            "Mild": "Maintain healthy habits and check in with yourself regularly.",
+            "Moderate": "Consider talking to a counselor or therapist.",
+            "Moderately Severe": "Seek professional help soon.",
+            "Severe": "Immediate help is recommended from a licensed mental health provider."
+        }.get(level, "Consult a mental health professional.")
+
+        return {
+            "level": level,
+            "recommendation": recommendation,
+            "total_score": total_score
+        }
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Prediction failed: {e}")
+
+# Run the API (optional for local testing)
+if __name__ == "__main__":
+    uvicorn.run("api:app", host="127.0.0.1", port=8000, reload=True)
