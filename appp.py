@@ -64,26 +64,7 @@ elif selected == "Predict":
         except Exception as e:
             st.error(f"API call error: {e}")
 
-# About Page
-elif selected == "About":
-    st.title("ℹ️ About This App")
-    st.write("""
-    This app helps assess mental health levels based on standardized questionnaires: PHQ-9 and GAD-7.
 
-    - **PHQ-9** measures depression severity  
-    - **GAD-7** measures anxiety severity  
-
-    Built using:
-    - 🧠 Streamlit
-    - 💡 Python
-    - 🚀 FastAPI backend
-    - ✨ Lottie Animations (optional)
-
-    _This is not a clinical diagnostic tool. Please consult a professional if needed._
-    """)
-
-# Style metrics
-style_metric_cards()
 """
 
 import streamlit as st
