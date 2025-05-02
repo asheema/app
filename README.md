@@ -4,10 +4,15 @@
 
 
 AI-Powered Mental Health Assessment & Recommendation System is a machine learning-powered web application designed to assess a user's mental health status using two clinically validated screening tools: PHQ-9 (for depression) and GAD-7 (for anxiety).
+
 Users complete a series of questions, and the system:
+
 Predicts their mental wellness level using a trained Random Forest model.
+
 Provides recommendations based on the severity.
+
 Uses K-Means clustering to group users into behavioral patterns.
+
 Is equipped with CI/CD automation and responsible research disclosures.
 
 
@@ -18,27 +23,40 @@ The Mental Health Prediction System is a comprehensive web-based application des
 
 # Objectives
 Self-assessment: Enable users to perform quick screenings based on PHQ-9 and GAD-7 scores.
+
 Prediction: Use a trained Random Forest classifier to predict mental health severity (Minimal, Mild, Moderate, Severe).
+
 Pattern Grouping: Use K-Means Clustering to group users based on their response trends for population-level insights.
+
 Responsible Guidance: Offer basic actionable suggestions without replacing professional care.
+
 CI/CD Readiness: Ensure that updates and bug fixes can be deployed quickly using GitHub Actions.
 
 
 # Why This Matters
 Mental health issues often go undetected or unaddressed. This tool aims to:
+
 Lower the barrier to initial screening.
+
 Empower users with self-awareness.
+
 Provide responsible feedback grounded in scientific research.
+
 Promote conversations around mental wellness in a safe, data-aware manner.
 
 
 # Key Features
 
 PHQ-9 & GAD-7-Screening	16-question assessment form based on validated clinical tools
+
 Real-time Prediction	Backend FastAPI service delivers severity classification instantly
+
 K-Means Clustering	Groups users into behavioral clusters for deeper insight
+
 Validation Checks	Ensures all responses are submitted before prediction
+
 CI/CD Pipeline-Automated deployment via GitHub Actions
+
 Ethical AI Use-Clear disclaimer, non-diagnostic purpose, synthetic data training
 
 
@@ -133,6 +151,80 @@ API_URL=http://localhost:8000
 MODEL_PATH=random_forest_model.pkl
 
 After copying, rename this file to .env and customize as needed.
+
+
+Local Setup: Frontend + Backend Integration
+
+Backend (FastAPI):
+
+Run your backend API server with:
+
+uvicorn api:app --reload
+
+URL: http://127.0.0.1:8000 or http://localhost:8000
+
+This serves your ML model prediction logic.
+
+Frontend (Streamlit):
+
+Run your frontend UI with:
+
+streamlit run app.py
+
+URL: http://localhost:8501
+
+The frontend will send a request to http://127.0.0.1:8000/predict when the user clicks "Predict".
+
+Ensure both are running simultaneously in separate terminals.
+
+Deployment on Render: Full Setup with Frontend + Backend
+
+Backend (FastAPI) on Render
+
+Steps:
+
+Push your backend code (api.py, model.pkl, train_model.py, etc.) to a GitHub repo.
+
+Create a new Web Service on Render.
+
+Use:
+
+Build Command: pip install -r requirements.txt
+
+Start Command: uvicorn api:app --host 0.0.0.0 --port 10000
+
+Set port to 10000 in Render.
+
+Once deployed, you'll get a public URL like:
+
+https://app-1-g00m.onrender.com/
+
+Replace http://127.0.0.1:8000 with this in your Streamlit app.py.
+
+Frontend (Streamlit) on Render
+
+Push your app.py and related frontend code to another GitHub repo.
+
+Create another Web Service on Render.
+
+Use:
+
+Build Command: pip install -r requirements.txt
+
+Start Command: streamlit run app.py --server.port 10001 --server.enableCORS false
+
+Once deployed, you’ll get a URL like:
+
+https://app-1-g00m.onrender.com/
+
+Integrating Frontend with Backend on Render
+
+Edit app.py to call Render backend:
+
+API_URL = "http://127.0.0.1:8000/predict"
+
+Make sure this replaces any local URL like http://127.0.0.1:8000.
+
 
 
 # ML Model Development, Training Details & Evaluation
