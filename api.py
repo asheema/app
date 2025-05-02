@@ -48,7 +48,7 @@ def predict_mental_health(data: MHRequest):
         "recommendation": recommendation
     }
 """
-
+"""
 from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List
@@ -76,4 +76,51 @@ def predict_score(data: MentalHealthInput):
         "total_score": total_score,
         "level": level,
         "recommendation": recommendation
+    }
+    """
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+import joblib
+import numpy as np
+
+# Load the trained RandomForest model
+model = joblib.load('mental_health_model.pkl')
+
+# Define the request body for prediction
+class PredictionRequest(BaseModel):
+    phq9: list
+    gad7: list
+
+app = FastAPI()
+
+@app.post("/predict")
+def predict(request: PredictionRequest):
+    # Flatten and combine the features (do this explicitly)
+    features = np.hstack([np.array(request.phq9).flatten(), np.array(request.gad7).flatten()])
+
+    # Make prediction
+    prediction = model.predict([features])
+    total_score = sum(request.phq9) + sum(request.gad7)
+    
+    # Determine the mental health level based on prediction
+    level_dict = {0: 'None', 1: 'Mild', 2: 'Moderate', 3: 'Severe', 4: 'Very Severe'}
+    level = level_dict.get(prediction[0], 'Unknown')
+
+    # Recommendation based on the score
+    if level == 'None':
+        recommendation = 'You are doing well. Keep it up!'
+    elif level == 'Mild':
+        recommendation = 'Consider managing stress and monitoring your mood.'
+    elif level == 'Moderate':
+        recommendation = 'You may benefit from seeking professional help.'
+    elif level == 'Severe':
+        recommendation = 'It’s highly recommended to consult a healthcare provider.'
+    else:
+        recommendation = 'Please seek immediate professional help.'
+
+    return {
+        'total_score': total_score,
+        'level': level,
+        'recommendation': recommendation
     }
