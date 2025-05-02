@@ -1,5 +1,6 @@
-# app
-Project Overview
+# AI-POWERED MENTAL Health Assessment & Recommendation System
+
+# Project Overview
 
 
 AI-Powered Mental Health Assessment & Recommendation System is a machine learning-powered web application designed to assess a user's mental health status using two clinically validated screening tools: PHQ-9 (for depression) and GAD-7 (for anxiety).
@@ -10,12 +11,12 @@ Uses K-Means clustering to group users into behavioral patterns.
 Is equipped with CI/CD automation and responsible research disclosures.
 
 
-Introduction
+# Introduction
 
 
 The Mental Health Prediction System is a comprehensive web-based application designed to help users assess their mental well-being using two clinically validated tools — PHQ-9 (for depression) and GAD-7 (for anxiety). By leveraging machine learning, FastAPI, Streamlit, and CI/CD automation, the system offers users a fast, interactive, and privacy-respecting way to gain insights into their mental health patterns.
 
-Objectives
+# Objectives
 Self-assessment: Enable users to perform quick screenings based on PHQ-9 and GAD-7 scores.
 Prediction: Use a trained Random Forest classifier to predict mental health severity (Minimal, Mild, Moderate, Severe).
 Pattern Grouping: Use K-Means Clustering to group users based on their response trends for population-level insights.
@@ -23,7 +24,7 @@ Responsible Guidance: Offer basic actionable suggestions without replacing profe
 CI/CD Readiness: Ensure that updates and bug fixes can be deployed quickly using GitHub Actions.
 
 
-Why This Matters
+# Why This Matters
 Mental health issues often go undetected or unaddressed. This tool aims to:
 Lower the barrier to initial screening.
 Empower users with self-awareness.
@@ -31,7 +32,8 @@ Provide responsible feedback grounded in scientific research.
 Promote conversations around mental wellness in a safe, data-aware manner.
 
 
-Key Features
+# Key Features
+
 PHQ-9 & GAD-7-Screening	16-question assessment form based on validated clinical tools
 Real-time Prediction	Backend FastAPI service delivers severity classification instantly
 K-Means Clustering	Groups users into behavioral clusters for deeper insight
@@ -41,7 +43,8 @@ Ethical AI Use-Clear disclaimer, non-diagnostic purpose, synthetic data training
 
 
 
-Technologies Used:
+# Technologies Used:
+
 Frontend: Streamlit
 Backend: FastAPI
 Model: Random Forest (trained on synthetic PHQ-9 and GAD-7 data)
@@ -61,7 +64,8 @@ app/
 │   └── deploy.yml        # CI/CD workflow
 
 
-Local Setup
+# Local Setup
+
 Clone the Repository
 git clone https://github.com/asheema/app.git
 cd app
@@ -106,13 +110,14 @@ Errors:
 
 
 
-# .env.example
+ .env.example
 API_URL=http://localhost:8000
 MODEL_PATH=random_forest_model.pkl
 After copying, rename this file to .env and customize as needed.
 
 
-ML Model Development, Training Details & Evaluation
+# ML Model Development, Training Details & Evaluation
+
 Model Used: Random Forest Classifier
 Understanding Random Forest in This Project
 Random Forest is a supervised machine learning algorithm used for classification and regression tasks. It works by building a "forest" of many decision trees and combining their results to make a final prediction.
@@ -135,7 +140,7 @@ Voting Mechanism:
 The final classification is made by majority voting across all trees.
 If 70 out of 100 trees predict "Moderate", and 30 predict "Mild", the final result is Moderate.
 
-✅ Why Random Forest Is a Good Choice for This Use Case
+# Why Random Forest Is a Good Choice for This Use Case
 Feature	Benefit
 Handles categorical + numerical data	
 Resistant to overfitting	
@@ -174,25 +179,25 @@ Labeled severity based on total score ranges:
 20+: Severe
 
 Training Script: train_model.py
+
+
 # Generates synthetic data and trains a RandomForest model
 from sklearn.ensemble import RandomForestClassifier
 import numpy as np
 import joblib
-
 X = np.random.randint(0, 4, size=(1000, 16))
 y = np.array([0 if s <= 9 else 1 if s <= 14 else 2 if s <= 19 else 3 for s in X.sum(axis=1)])
-
 model = RandomForestClassifier(n_estimators=100, random_state=42)
 model.fit(X, y)
 joblib.dump(model, "random_forest_model.pkl")
 
-Evaluation
+
+# Evaluation
 Accuracy (on synthetic test split): ~90%
 Fast inference and high generalization on score-based severity categories
 
+
 ✅ Additional Notes
 The Clustering feature in app.py uses KMeans to group user response patterns into 3 clusters for analysis, based on past response trends.
-
 CI/CD pipeline auto-deploys the app using GitHub Actions (.github/workflows/deploy.yml).
-
 Responsible AI: Includes ethical disclaimers, research references, and prioritizes user safety.
