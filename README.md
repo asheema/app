@@ -83,9 +83,13 @@ app/
 ├── api.py                # FastAPI backend
 
 ├── train_model.py        # Script to generate and train ML model
+
 ├── random_forest_model.pkl  # Saved model
+
 ├── requirements.txt
-├── .env                  # Environment configuration
+
+├── .env                 # Environment configuration
+
 ├── .github/workflows/
 │   └── deploy.yml        # CI/CD workflow
 
@@ -173,7 +177,7 @@ Frontend (Streamlit):
 
 Run your frontend UI with:
 
-streamlit run app.py
+streamlit run appp.py
 
 URL: http://localhost:8501
 
@@ -199,7 +203,7 @@ Once deployed, you'll get a public URL like:
 
 https://app-1-g00m.onrender.com/
 
-Replace http://127.0.0.1:8000 with this in your Streamlit app.py.
+Replace http://127.0.0.1:8000 with this in your Streamlit appp.py.
 
 Frontend (Streamlit) on Render
 
@@ -217,7 +221,7 @@ https://app-1-g00m.onrender.com/
 
 Integrating Frontend with Backend on Render
 
-Edit app.py to call Render backend:
+Edit appp.py to call Render backend:
 
 API_URL = "http://127.0.0.1:8000/predict"
 
