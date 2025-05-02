@@ -80,29 +80,41 @@ Run the Frontend
 streamlit run app.py
 
 API Documentation
+
 Base URL
 http://localhost:8000
 
 Health Check
+
 Endpoint: /
-Method: GET
+
+Method: 
+
 Response:
+
 { "message": "Mental Health API is running!" }
-📈 Predict Endpoint
+
+Predict Endpoint
+
 Endpoint: /predict
+
 Method: POST
 
 Payload:
+
 {
   "phq9": [1, 0, 2, 1, 1, 2, 0, 1, 0],
   "gad7": [0, 1, 1, 1, 2, 1, 0]
 }
+
 Response:
+
 {
   "total_score": 14,
   "level": "Moderate",
   "recommendation": "Talking to a counselor or support group may help."
 }
+
 Errors:
 
 400: If PHQ-9 or GAD-7 inputs are incomplete or malformed.
@@ -110,7 +122,7 @@ Errors:
 
 
 
- .env.example
+.env.example
 API_URL=http://localhost:8000
 MODEL_PATH=random_forest_model.pkl
 After copying, rename this file to .env and customize as needed.
@@ -149,11 +161,16 @@ Fast inference
 This logic is used during training to assign correct class labels to each data point.
 
 Evaluation Metrics (Typical)
+
 On synthetic data (1000 samples):
+
 Training Accuracy: ~99% (since the rules are deterministic)
+
+
 Test Accuracy: ~90% (some variance due to random data noise)
 
 Model size: Small enough for quick API response (<1MB as .pkl)
+
 Features: 9 PHQ-9 questions + 7 GAD-7 questions (total 16 features)
 
 
@@ -166,7 +183,7 @@ Target Labels:
 
 3: Severe
 
-🧪 Data Generation (Synthetic)
+Data Generation (Synthetic)
 Randomized synthetic scores from [0–3] across PHQ-9 and GAD-7
 Labeled severity based on total score ranges:
 
@@ -194,11 +211,14 @@ joblib.dump(model, "random_forest_model.pkl")
 
 # Evaluation
 Accuracy (on synthetic test split): ~90%
+
 Fast inference and high generalization on score-based severity categories
 
 
 # Additional Notes
 
 The Clustering feature in app.py uses KMeans to group user response patterns into 3 clusters for analysis, based on past response trends.
+
 CI/CD pipeline auto-deploys the app using GitHub Actions (.github/workflows/deploy.yml).
+
 Responsible AI: Includes ethical disclaimers, research references, and prioritizes user safety.
